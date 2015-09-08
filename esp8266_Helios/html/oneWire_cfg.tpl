@@ -18,10 +18,10 @@ var sensors=[];
 function createDivider() {
   var divider=document.createElement("li");
   divider.className="ui-li-divider ui-bar-inherit ui-first-child";
-  divider.textContent="Please select your WiFi network:";
+  divider.textContent="Sellect next in case sensor is correctly recognised:";
   return divider;
 }
-
+/*
 function clearSelectedItem() {
   for(var nIter=0;nIter<networks.length;nIter++) {
     var linkElement = document.getElementById("link"+networks[nIter]);
@@ -29,26 +29,22 @@ function clearSelectedItem() {
       linkElement.style.backgroundColor="#f6f6f6";
     }
   }
-}
+}*/
+
 
 function createInputForAp(ap) {
-  if (ap.essid=="" && ap.rssi==0) return;
-  var encVal="-64"; //assume wpa/wpa2
-  if (ap.enc=="0") encVal="0"; //open
-  if (ap.enc=="1") encVal="-32"; //wep
-
   var element=document.createElement("li");
-  var link=document.createElement("a");
-  link.className="ui-btn ui-btn-icon-right ui-icon-carat-r";
-  var linkName = "link"+ap.essid;
-  link.id=linkName;
-  link.textContent=ap.essid;
-  link.onclick = function () {
+  var Sensor=document.createElement("a");
+  SensorName.className="ui-btn ui-btn-icon-right ui-icon-carat-r";
+  var SensorName = "sensor"+ap.status;
+  SensorName.id=SensorName;
+  SensorName.textContent=ap.status;
+  SensorName.onclick = function () {
     clearSelectedItem();
-    document.getElementById("essid").value = ap.essid;
-    document.getElementById(linkName).style.backgroundColor="#ededed";
+    document.getElementById("sensor").value = ap.status;
+    document.getElementById(SensorName).style.backgroundColor="#ededed";
   };
-  element.appendChild(link);
+  element.appendChild(SensorName);
   return element;
 }
 
