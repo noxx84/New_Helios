@@ -119,40 +119,24 @@ void mqttDataCb(uint32_t *args, const char* topic, uint32_t topic_len, const cha
 	os_memcpy(dataBuf, data, data_len);
 	dataBuf[data_len] = 0;
 
-	if (0 == strcmp(topicBuf, "/settings/temperature"))
+	if (0 == strcmp(topicBuf, "iot-2/evt/thresholds/fmt/json"))
 	{
 		if (false == parse(dataBuf))
 		{
 			INFO("\r\nUnable to parse JSON.\r\n");
 		}
 	}
-	else if (0 == strcmp(topicBuf, "/ping"))
+	else if (0 == strcmp(topicBuf, "iot-2/evt/ping/fmt/json"))
 	{
 		publishData(client);
 	}
-	else if (0 == strcmp(topicBuf, "/poweron"))
-	{
-		//TODO: turn on
-	}
-	else if (0 == strcmp(topicBuf, "/poweroff"))
-	{
-		//TODO: turn off
-	}
-	else if (0 == strcmp(topicBuf, "/power"))
+	else if (0 == strcmp(topicBuf, "iot-2/evt/sensors/fmt/json"))
 	{
 		//TODO: report power status (on or off)
 		publishPowerStatus(client);
 	}
-	else if (0 == strcmp(topicBuf, "/command"))
-	{
-		if (0 == strcmp(dataBuf, "blink"))
-		{
-			blink_counter_lamp += 3;
-			INFO("Blink counter = %d \n", blink_counter_lamp);
-		}
-	}
-	else if ( (0 == strcmp(topicBuf, "/door") ) &&
-						(0 == strcmp(dataBuf, "open")) )
+	else if ( (0 == strcmp(topicBuf, "iot-2/evt/relays/fmt/json") ) &&
+						(0 == strcmp(dataBuf, "on")) )
 	{
 		//turn on GPIO5
 		gpio_output_set(BIT5, 0, BIT5, 0);
@@ -177,7 +161,7 @@ void publishData(MQTT_Client* client)
 	ets_sprintf(str, "{ \"name\": \"%s\", \"temperature\": \"%s\" }",
 	settings_name, tempStr);
 
-	MQTT_Publish(client, " iot-2/evt/sensors_temp/fmt/json", str, strlen(str), 0, 1);
+	MQTT_Publish(client, "iot-2/evt/sensors_temp/fmt/json", str, strlen(str), 0, 1);
 }
 
 void publishPowerStatus(MQTT_Client* client)
