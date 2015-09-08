@@ -305,6 +305,10 @@ HttpdBuiltInUrl builtInUrls[]={
 	{"/wifi.tpl", cgiEspFsTemplate, tplWlan},
 	{"/connect.cgi", cgiWiFiConnect, NULL},
 	{"/setmode.cgi", cgiWifiSetMode, NULL},
+	{"/cgiOneWire.cgi",cgiOneWire,NULL},
+	{"/cgiOneWire_cfg.cgi",cgiOneWire_cfg,NULL},
+	{"/cgiOneWireManual.cg",cgiOneWireManual,NULL},
+	{"/cgiOneWire_read_temp.cgi",cgiOneWire_read_temp,NULL},
 	{"/led.cgi", cgiLed, NULL},
 	{"*", cgiEspFsHook, NULL}, //Catch-all cgi function for the filesystem
 	{NULL, NULL, NULL}
