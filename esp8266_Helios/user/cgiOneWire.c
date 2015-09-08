@@ -26,7 +26,7 @@ void  cgiOneWire(HttpdConnData *connData) {
 	int len_1;
 	int len_send;
 	char sensor[128];
-	char set_point_A[64];
+	char set_point_A_boiler[64];
 	char set_point_B[64];
 	char ctrl_elemnt_buff[32];
 	char sensor_position;
@@ -48,19 +48,41 @@ void  cgiOneWire(HttpdConnData *connData) {
 		r = search_ds18b20(sensor_position);
 		len_send=os_sprintf(buff, "]\n}\n}\n");
 	}
-	len = httpdFindArg(connData->post->buff, "set_point_A", set_point_A,
+	len = httpdFindArg(connData->post->buff, "set_point_A_boiler", set_point_A,
 			sizeof(set_point_A));
-	len_1 = httpdFindArg(connData->post->buff, "set_point_B", set_point_B,
+	len_= httpdFindArg(connData->post->buff, "set_point_B_boiler", set_point_B,
+	
+	if (len != 0 {
+		set_point_value_A = atoi(set_point_A_boiler);
+		set_point_value_B = atoi(set_point_B_boiler);
+		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,0);
+	}
+	
+	len = httpdFindArg(connData->post->buff, "set_point_A_stove", set_point_A,
+			sizeof(set_point_A));
+	len_= httpdFindArg(connData->post->buff, "set_point_B_stove", set_point_B,
+	
+	
+		set_point_value_A = atoi(set_point_A_stove);
+		set_point_value_B = atoi(set_point_B_stove);
+		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,1);
+		os_printf("\r\nCGI set_point_A & B %d%d\r\n",len ,len_1);
+		len_send=os_sprintf(buff, "]\n}\n}\n");
+	}
 			sizeof(set_point_B));
-	len_1 = httpdFindArg(connData->post->buff, "ctrl_elemnt_buff", ctrl_elemnt_buff,
-				sizeof(ctrl_elemnt_buff));
+	len = httpdFindArg(connData->post->buff, "set_point_A_stove", set_point_A,
+			sizeof(set_point_A));
+	len_= httpdFindArg(connData->post->buff, "set_point_B_stove", set_point_B,
+			sizeof(set_point_B));
 
 	if (len != 0 && len_1 !=0) {
-		set_point_value_A = atoi(set_point_A);
-		set_point_value_B = atoi(set_point_B);
-		ctrl_elemnt = atoi(ctrl_elemnt_buff);
+		set_point_value_A = atoi(set_point_A_boiler);
+		set_point_value_B = atoi(set_point_B_boiler);
+		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,0);
+		set_point_value_A = atoi(set_point_A_stove);
+		set_point_value_B = atoi(set_point_B_stove);
+		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,1);
 		os_printf("\r\nCGI set_point_A & B %d%d\r\n",len ,len_1);
-		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,ctrl_elemnt);
 		len_send=os_sprintf(buff, "]\n}\n}\n");
 	}
 	httpdSend(connData, buff, len_send);
