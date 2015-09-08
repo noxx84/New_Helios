@@ -39,10 +39,10 @@ function swapFields(fieldOne, fieldTwo) {
 }
 function OnChangeCheckbox (myonoffswitch) {
             if (myonoffswitch.checked) {
-                xhr.open("GET", "cgiOneWireManual.cgi.cgi?value=ON");
+                xhr.open("GET", "cgiOneWireManual.cgi?name=myonoffswitch.name.&value=ON");
             }
             else {
-               xhr.open("GET", "cgiOneWire_read_temp.cgi?value=OFF");
+               xhr.open("GET", "cgiOneWireManual.cgi?name=myonoffswitch.name.&value=OFF");
             }
 }
 
@@ -89,11 +89,12 @@ window.onload=function(e) {
 	<div class="inputSection">
     <form name="TempFOrm" action="cgiOneWireManual.cgi" method="post">
     <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" onchange = "change(this)" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        <input type="checkbox" name="onoffswitch" onchange = "change(this)" class="onoffswitch-checkbox" id="PompSwitch" checked>
         <label class="onoffswitch-label" for="myonoffswitch">
             <span class="onoffswitch-inner"></span>
             <span class="onoffswitch-switch"></span>
         </label>
+        
     </div>
 
 
