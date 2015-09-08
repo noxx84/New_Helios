@@ -55,7 +55,7 @@ function createInputForAp(ap) {
 
 function scanSensors() {
   var sensor_pos=getNextSensor();
-  xhr.open("GET", "cgiOneWire.cgi?sensor=sensor_pos");
+  xhr.open("GET", "cgiOneWire_cfg.cgi?sensor=sensor_pos");
   xhr.onreadystatechange=function() {
     if (xhr.readyState==4 && xhr.status>=200 && xhr.status<300) {
       var data=JSON.parse(xhr.responseText);
