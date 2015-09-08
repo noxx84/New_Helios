@@ -85,27 +85,22 @@ window.onload=function(e) {
       <li><a href="#" class="ui-btn ui-btn-inner ui-corner-all ui-shadow" style="text-align: center;">Scanning... Please wait...</a></li>
 		</ul>
 	</div>
-
-	<div class="inputSection">
-    <form name="TempFOrm" action="cgiOneWireManual.cgi" method="post">
+<p>Manual Pomp Control:</p>
     <div class="onoffswitch">
         <input type="checkbox" name="onoffswitch" onchange = "change(this)" class="onoffswitch-checkbox" id="PompSwitch" checked>
-        <label class="onoffswitch-label" for="myonoffswitch">
+        <label class="onoffswitch-label" for="PompSwitch">
             <span class="onoffswitch-inner"></span>
             <span class="onoffswitch-switch"></span>
         </label>
-        
     </div>
-
-
-    <div class="ui-input-btn ui-btn ui-corner-all ui-shadow">Connect
-      <input type="submit" name="connect" value="Connect" />
+<p>Manual Valve Control:</p>
+   <div class="onoffswitch">      
+        <input type="checkbox" name="onoffswitch" onchange = "change(this)" class="onoffswitch-checkbox" id="ValveSwitch" checked>
+        <label class="onoffswitch-label" for="ValveSwitch">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+        </label>
     </div>
-
-    </form>
-	</div>
-
-
   </div>
 </body>
 </html>
