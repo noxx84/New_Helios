@@ -25,7 +25,6 @@ void  cgiOneWire(HttpdConnData *connData) {
 	int r;
 	int len_1;
 	int len_send;
-	char sensor[128];
 	char set_point_A_boiler[64];
 	char set_point_B[64];
 	char ctrl_elemnt_buff[32];
@@ -38,15 +37,6 @@ void  cgiOneWire(HttpdConnData *connData) {
 	if (connData->conn == NULL) {
 		//Connection aborted. Clean up.
 		return HTTPD_CGI_DONE;
-	}
-
-	len = httpdFindArg(connData->post->buff, "sensor", sensor, sizeof(sensor));
-
-	if (len != 0) {
-		sensor_position = atoi(sensor);
-		os_printf("\r\nCGI sensor_present %d\r\n", len);
-		r = search_ds18b20(sensor_position);
-		len_send=os_sprintf(buff, "]\n}\n}\n");
 	}
 	len = httpdFindArg(connData->post->buff, "set_point_A_boiler", set_point_A,
 			sizeof(set_point_A));
