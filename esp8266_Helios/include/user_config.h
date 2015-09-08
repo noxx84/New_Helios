@@ -7,14 +7,14 @@
 
 /*DEFAULT CONFIGURATIONS*/
 
-#define MQTT_HOST			"iot.anavi.org" // ip or domain
+#define MQTT_HOST			"heliosapp.messaging.internetofthings.ibmcloud.com" // ip or domain
 #define MQTT_PORT			1883
 #define MQTT_BUF_SIZE		1024
 #define MQTT_KEEPALIVE		120	 /*second*/
 
-#define MQTT_CLIENT_ID		"DVES_%08X"
-#define MQTT_USER			"DVES_USER"
-#define MQTT_PASS			"DVES_PASS"
+#define MQTT_CLIENT_ID		"d:Solar:Controller:Helios01"
+#define MQTT_USER			"token"
+#define MQTT_PASS			"helios1984"
 
 #define STA_SSID "FRITZ!Box MSZ"
 #define STA_PASS "85867693975228632120"
