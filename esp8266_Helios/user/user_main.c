@@ -158,8 +158,10 @@ void publishData(MQTT_Client* client)
 	char *tempStr = "00";
 	itoa(g_temperature, tempStr, 10);
 	char str[255];
-	ets_sprintf(str, "{ \"name\": \"%s\", \"temperature\": \"%s\" }",
+	ets_sprintf(str,"{ "d":{"name":"%s"},{"temperature":"%s"}}",
 	settings_name, tempStr);
+/*	ets_sprintf(str, "{ \"name\": \"%s\", \"temperature\": \"%s\" }",
+	settings_name, tempStr);*/
 
 	MQTT_Publish(client, "iot-2/evt/sensors_temp/fmt/json", str, strlen(str), 0, 1);
 }
