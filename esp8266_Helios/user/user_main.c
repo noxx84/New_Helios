@@ -73,23 +73,24 @@ void mqttConnectedCb(uint32_t *args)
 	INFO("MQTT: Connected\r\n");
 
 	//TODO: add unique name as prefx
-	//subscribe for commands
-	if (FALSE == MQTT_Subscribe(client, "/command", 0))
+	//subscribe for thresholds
+	if (FALSE == MQTT_Subscribe(client, "iot-2/evt/thresholds/fmt/json", 0))
 	{
-		INFO("MQTT: Unable to subscribe to /command\r\n");
+		INFO("MQTT: Unable to subscribe to /thresholds\r\n");
 	}
 
-	//subscribe for door
-	if (FALSE == MQTT_Subscribe(client, "/door", 0))
+	//subscribe for relays
+	if (FALSE == MQTT_Subscribe(client, "iot-2/evt/relays/fmt/json", 0))
 	{
-		INFO("MQTT: Unable to subscribe to /door\r\n");
+		INFO("MQTT: Unable to subscribe to /relays\r\n");
 	}
-
-	if (FALSE == MQTT_Subscribe(client, "/settings/temperature", 0))
+	//subscribe for sensors
+	if (FALSE == MQTT_Subscribe(client, "iot-2/evt/sensors/fmt/json", 0))
 	{
-		INFO("MQTT: Unable to subscribe to /settings/temperature\r\n");
+		INFO("MQTT: Unable to subscribe to /sensors\r\n");
 	}
-	if (FALSE == MQTT_Subscribe(client, "/ping", 0))
+	//subscribe for ping
+	if (FALSE == MQTT_Subscribe(client, "iot-2/evt/ping/fmt/json", 0))
 	{
 		INFO("MQTT: Unable to subscribe to /ping\r\n");
 	}
@@ -176,14 +177,14 @@ void publishData(MQTT_Client* client)
 	ets_sprintf(str, "{ \"name\": \"%s\", \"temperature\": \"%s\" }",
 	settings_name, tempStr);
 
-	MQTT_Publish(client, "/sensors/temperature", str, strlen(str), 0, 1);
+	MQTT_Publish(client, " iot-2/evt/sensors_temp/fmt/json", str, strlen(str), 0, 1);
 }
 
 void publishPowerStatus(MQTT_Client* client)
 {
 	char str[255];
-	ets_strcpy(str, "{ \"power\": \"on\" }");
-	MQTT_Publish(client, "/power", str, strlen(str), 0, 1);
+	ets_strcpy(str, "{ \"relay\": \"on\" }");
+	MQTT_Publish(client, "iot-2/evt/relay/fmt/json", str, strlen(str), 0, 1);
 }
 
 void publishAcknowledge(MQTT_Client* client, const char* topic)
