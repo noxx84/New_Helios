@@ -106,7 +106,12 @@ function scanSensors() {
         <input type="text" name="set_point_A_stove" value="" placeholder="set point A" maxlength="100">
         <input type="text" name="set_point_B_stove" value="" placeholder="set point B" maxlength="100">
     	</div>
-
+    	
+	<label for="basic">SET Outputs for control functions  </label>
+	<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
+        Setup (between 1 and 8):<input type="number" name="Pomp" min="1" max="8"  value="" placeholder="0" maxlength="100">
+        Setup (between 1 and 8):<input type="number" name="Valve" min="1" max="8" value="" placeholder="1" maxlength="100">
+    	</div>
         </div>
     </div>
 
