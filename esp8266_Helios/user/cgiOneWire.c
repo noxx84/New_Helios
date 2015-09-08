@@ -50,41 +50,53 @@ void  cgiOneWire(HttpdConnData *connData) {
 	}
 	len = httpdFindArg(connData->post->buff, "set_point_A_boiler", set_point_A,
 			sizeof(set_point_A));
-	len_= httpdFindArg(connData->post->buff, "set_point_B_boiler", set_point_B,
+	len_1= httpdFindArg(connData->post->buff, "set_point_B_boiler", set_point_B,
 	
-	if (len != 0 {
-		set_point_value_A = atoi(set_point_A_boiler);
-		set_point_value_B = atoi(set_point_B_boiler);
+	if (len != 0 && len_1!=0) {
+		set_point_value_A = atoi(set_point_A);
+		set_point_value_B = atoi(set_point_B);
 		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,0);
-	}
-	
-	len = httpdFindArg(connData->post->buff, "set_point_A_stove", set_point_A,
-			sizeof(set_point_A));
-	len_= httpdFindArg(connData->post->buff, "set_point_B_stove", set_point_B,
-	
-	
-		set_point_value_A = atoi(set_point_A_stove);
-		set_point_value_B = atoi(set_point_B_stove);
-		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,1);
 		os_printf("\r\nCGI set_point_A & B %d%d\r\n",len ,len_1);
 		len_send=os_sprintf(buff, "]\n}\n}\n");
 	}
-			sizeof(set_point_B));
+	
 	len = httpdFindArg(connData->post->buff, "set_point_A_stove", set_point_A,
 			sizeof(set_point_A));
-	len_= httpdFindArg(connData->post->buff, "set_point_B_stove", set_point_B,
-			sizeof(set_point_B));
+	len_1= httpdFindArg(connData->post->buff, "set_point_B_stove", set_point_B,
+	
+	
+	if (len != 0 && len_1!=0) {
+		set_point_value_A = atoi(set_point_A);
+		set_point_value_B = atoi(set_point_B);
+		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,0);
+		os_printf("\r\nCGI set_point_A & B %d%d\r\n",len ,len_1);
+		len_send=os_sprintf(buff, "]\n}\n}\n");
+	}
+	httpdSend(connData, buff, len_send);
+//	espconn_sent(connData->conn, (uint8 *)buff, os_strlen(buff));
+}
+void  cgiOneWire_cfg(HttpdConnData *connData) {
+	ControllerConfig *pApp =pControllerConfig_Descriptor();
+	int len;
+	int r;
+	int len_send;
+	char sensor[128];
+	char buff[32];
 
-	if (len != 0 && len_1 !=0) {
-		set_point_value_A = atoi(set_point_A_boiler);
-		set_point_value_B = atoi(set_point_B_boiler);
-		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,0);
-		set_point_value_A = atoi(set_point_A_stove);
-		set_point_value_B = atoi(set_point_B_stove);
-		r = set_Point_ds18b20(set_point_value_A ,set_point_value_B,1);
-		os_printf("\r\nCGI set_point_A & B %d%d\r\n",len ,len_1);
+	if (connData->conn == NULL) {
+		//Connection aborted. Clean up.
+		return HTTPD_CGI_DONE;
+	}
+
+	len = httpdFindArg(connData->post->buff, "sensor", sensor, sizeof(sensor));
+
+	if (len != 0) {
+		sensor_position = atoi(sensor);
+		os_printf("\r\nCGI sensor_present %d\r\n", len);
+		r = search_ds18b20(sensor_position);
 		len_send=os_sprintf(buff, "]\n}\n}\n");
 	}
+	
 	httpdSend(connData, buff, len_send);
 //	espconn_sent(connData->conn, (uint8 *)buff, os_strlen(buff));
 }
