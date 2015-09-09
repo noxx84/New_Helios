@@ -19,6 +19,7 @@
 #include "cgi.h"
 #include "cgiwifi.h"
 #include "cgiflash.h"
+#include "cgiOneWire.h"
 #include "stdout.h"
 #include "auth.h"
 #include "config.h"
