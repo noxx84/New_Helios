@@ -90,3 +90,56 @@ void  cgiOneWire_cfg(HttpdConnData *connData) {
 	httpdSend(connData, buff, len_send);
 //	espconn_sent(connData->conn, (uint8 *)buff, os_strlen(buff));
 }
+void  cgiOneWireManual(HttpdConnData *connData) {
+	ControllerConfig *pApp =pControllerConfig_Descriptor();
+	int len;
+	int len_1;
+	int r;
+	int len_send;
+	char PompSwitch[64];
+	char ValveSwitch[64];
+	char buff[32];
+
+	if (connData->conn == NULL) {
+		//Connection aborted. Clean up.
+		return HTTPD_CGI_DONE;
+	}
+	len = httpdFindArg(connData->post->buff, "PompSwitch", ValveSwitch,sizeof(Switch));
+	if(len!=0){
+		if!(strcmp(Switch,"off") {
+		/*start manual off function */
+		}
+		else if (strcmp(Switch,"on")) {
+		/*start manual on function */
+		}
+	}
+	len= httpdFindArg(connData->post->buff, "ValveSwitch", ValveSwitch,sizeof(Switch));
+	if(len!=0){
+		if!(strcmp(Switch,"off") {
+		/*start manual off function */
+		}
+		else if (strcmp(Switch,"on")) {
+		/*start manual on function */
+		}
+	}
+	
+	os_printf("\r\nCGI manual & B %d\r\n",len);
+	len_send=os_sprintf(buff, "]\n}\n}\n");
+	httpdSend(connData, buff, len_send);
+	
+//	espconn_sent(connData->conn, (uint8 *)buff, os_strlen(buff));
+}
+void  cgiOneWire_read_temp(HttpdConnData *connData) {
+	ControllerConfig *pApp =pControllerConfig_Descriptor();
+	int len;
+	int r;
+	char buff[32];
+
+	if (connData->conn == NULL) {
+		//Connection aborted. Clean up.
+		return HTTPD_CGI_DONE;
+	}
+	/*fill the code for the temperature callback */
+	httpdSend(connData, buff, len_send);
+//	espconn_sent(connData->conn, (uint8 *)buff, os_strlen(buff));
+}
