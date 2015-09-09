@@ -74,23 +74,23 @@ void mqttConnectedCb(uint32_t *args)
 
 	//TODO: add unique name as prefx
 	//subscribe for thresholds
-	if (FALSE == MQTT_Subscribe(client, "iot-2/evt/thresholds/fmt/json", 0))
+	if (FALSE == MQTT_Subscribe(client, "iot-2/type/+/id/+/evt/thresholds/fmt/json", 0))
 	{
 		INFO("MQTT: Unable to subscribe to /thresholds\r\n");
 	}
 
 	//subscribe for relays
-	if (FALSE == MQTT_Subscribe(client, "iot-2/evt/relays/fmt/json", 0))
+	if (FALSE == MQTT_Subscribe(client, "iot-2/type/+/id/+/evt/relays/fmt/json", 0))
 	{
 		INFO("MQTT: Unable to subscribe to /relays\r\n");
 	}
 	//subscribe for sensors
-	if (FALSE == MQTT_Subscribe(client, "iot-2/evt/sensors/fmt/json", 0))
+	if (FALSE == MQTT_Subscribe(client, iot-2/type/+/id/+/evt/sensors/fmt/json", 0))
 	{
 		INFO("MQTT: Unable to subscribe to /sensors\r\n");
 	}
 	//subscribe for ping
-	if (FALSE == MQTT_Subscribe(client, "iot-2/evt/ping/fmt/json", 0))
+	if (FALSE == MQTT_Subscribe(client, "iot-2/type/+/id/+/evt/ping/fmt/json", 0))
 	{
 		INFO("MQTT: Unable to subscribe to /ping\r\n");
 	}
@@ -118,7 +118,8 @@ void mqttDataCb(uint32_t *args, const char* topic, uint32_t topic_len, const cha
 
 	os_memcpy(dataBuf, data, data_len);
 	dataBuf[data_len] = 0;
-
+	INFO("MQTT: topicBuf:=%s\r\n",topicBuf);
+	INFO("MQTT: dataBuf:=%s\r\n",dataBuf);
 	if (0 == strcmp(topicBuf, "iot-2/evt/thresholds/fmt/json"))
 	{
 		if (false == parse(dataBuf))
